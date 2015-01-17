@@ -1,22 +1,38 @@
 {
-  "name": "nanu-nanu",
-  "version": "0.0.1",
-  "description": "Greetings, commander!",
-  "main": "bin/nanu-nanu",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "bin": {
-    "nanu-nanu": "bin/nanu-nanu"
-  },
-  "author": "bryn austin bellomy <bryn.bellomy@gmail.com>",
-  "license": "WTFPL",
-  "dependencies": {
-    "marked-terminal": "1.1.x",
-    "cardinal": "0.4.x",
-    "optimist": "0.6.x",
-    "fs-extra": "0.14.x",
-    "chalk": "0.5.x",
-    "marked": "^0.3.2"
-  }
+	"name": "nanu-nanu",
+	"version": "0.0.1",
+	"description": "Greetings, commander!",
+	"main": "bin/nanu-nanu",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"bin": {
+		"nanu-nanu": "bin/nanu-nanu"
+	},
+	"author": "bryn austin bellomy <bryn.bellomy@gmail.com>",
+	"license": "WTFPL",
+	"dependencies": {
+		"marked-terminal": "1.1.x",
+		"cardinal": "0.4.x",
+		"optimist": "0.6.x",
+		"fs-extra": "0.14.x",
+		"chalk": "0.5.x",
+		"marked": "^0.3.2"
+	},
+	"devDependencies": {},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/brynbellomy/nanu-nanu.git"
+	},
+	"keywords": [
+		"hello",
+		"welcome",
+		"hi",
+		"cli",
+		"terminal"
+	],
+	"bugs": {
+		"url": "https://github.com/brynbellomy/nanu-nanu/issues"
+	},
+	"homepage": "https://github.com/brynbellomy/nanu-nanu"
 }
