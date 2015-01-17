@@ -1,0 +1,106 @@
+#!/usr/bin/env node
+
+var marked = require('marked')
+var MarkedTerminal = require('marked-terminal')
+var argv = require('optimist').argv
+var fs = require('fs-extra')
+var path = require('path')
+var chalk = require('chalk')
+
+var configFilename = path.join(process.env['HOME'], '.nanu-nanu')
+
+
+run(function (err) {
+    if (err) {
+        process.stderr.write(chalk.red('[nanu-nanu] Error: ' + err))
+        process.exit(1)
+    }
+})
+
+
+function run(callback)
+{
+    setupMarked()
+
+    determineFileFromArgv(function (err, filepath) {
+        readFile(filepath, function (err, dotfileText) {
+            if (err) { return callback(err) }
+
+            writeRenderedOutput(dotfileText)
+            return callback(null)
+        })
+    })
+}
+
+
+function determineFileFromArgv(callback)
+{
+    if (argv._.length <= 0)
+    {
+        fs.ensureFile(configFilename, function (err) {
+            if (err) { return callback(err) }
+            return callback(null, configFilename)
+        })
+    }
+    else {
+        return callback(null, argv._[0])
+    }
+}
+
+function readFile(filepath, callback) {
+    fs.readFile(filepath, function (err, data) {
+        if (err) { return callback(err) }
+
+        return callback(null, data.toString())
+    })
+}
+
+function writeRenderedOutput(text) {
+    var styled = marked(text)
+    process.stdout.write('\n\n')
+    process.stdout.write(chalk.green('.....** ') + chalk.underline.yellow('nanu nanu!') + chalk.green(' **.....\n'))
+    process.stdout.write(styled + '\n\n')
+}
+
+
+
+
+
+function setupMarked() {
+    var markedTerminalOptions = {
+      code: chalk.yellow,
+      blockquote: chalk.gray.italic,
+      html: chalk.gray,
+      heading: chalk.green,
+      firstHeading: chalk.red.underline,
+      hr: chalk.reset,
+      listitem: chalk.reset,
+      table: chalk.reset,
+      paragraph: chalk.reset,
+      strong: chalk.white,
+      em: chalk.italic,
+      codespan: chalk.yellow,
+      del: chalk.dim.gray.strikethrough,
+      link: chalk.blue,
+      href: chalk.blue.underline,
+
+      // Wheter or not to undo marked escaping
+      // of enitities (" -> &quot; etc)
+      unescape: true
+    }
+
+    marked.setOptions({
+        // renderer: new marked.Renderer(),
+        renderer: new MarkedTerminal(markedTerminalOptions),
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false
+    })
+}
+
+
+
